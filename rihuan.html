@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Rihuan AR Card</title>
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <a-scene
+    mindar-image="
+      imageTargetSrc: rihuan.mind;
+      autoStart: true;
+      uiLoading: yes;
+      uiError: yes;
+      uiScanning: yes;
+    "
+    color-space="sRGB"
+    renderer="colorManagement: true; physicallyCorrectLights: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+    <!-- Load gambar -->
+    <a-assets>
+      <img id="rihuanImg" src="rihuan.png" />
+    </a-assets>
+
+    <!-- Cahaya supaya gambar terlihat jelas dan terang -->
+    <a-light type="ambient" intensity="5"></a-light>
+    <a-light type="directional" intensity="3" position="0 5 5"></a-light>
+
+    <a-camera look-controls="enabled: false"></a-camera>
+
+    <!-- Saat scan rihuan.mind → tampil gambar rihuan.png -->
+    <a-entity id="marker" mindar-image-target="targetIndex: 0">
+      <!-- width & height disesuaikan proporsional gambar lo -->
+      <!-- material flat supaya warna gambar tidak terpengaruh bayangan -->
+      <a-plane
+        src="#rihuanImg"
+        width="1.2"
+        height="0.75"
+        position="0 0 0"
+        material="shader: flat; src: #rihuanImg"
+      ></a-plane>
+    </a-entity>
+
+  </a-scene>
+</body>
+</html>
